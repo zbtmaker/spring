@@ -1,6 +1,0 @@
-main/Application.class
-com/zbt/cache/service/MessageService.class
-com/zbt/cache/entity/Message.class
-com/zbt/cache/service/impl/MessageServiceImpl.class
-com/zbt/cache/config/BeanConfiguration.class
-com/zbt/cache/config/CacheConfiguration.class
