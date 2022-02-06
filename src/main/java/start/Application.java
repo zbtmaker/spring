@@ -1,4 +1,4 @@
-package main;
+package start;
 
 import com.zbt.cache.config.BeanConfiguration;
 import com.zbt.cache.config.CacheConfiguration;

@@ -36,6 +36,5 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @CacheEvict(cacheNames = "message", allEntries = true)
     public void evictAllCache() {
-
     }
 }
