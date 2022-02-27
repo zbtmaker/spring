@@ -57,8 +57,8 @@ public class MessageServiceTest {
         Assert.assertNotNull(messageService.getMessage(id1));
 
         Message message2 = new Message();
-        Long id2 = 1L;
-        message2.setId(id1);
+        Long id2 = 2L;
+        message2.setId(id2);
         message2.setTitle("标题2");
         message2.setContent("内容2");
         messageService.saveMessageCache(message2);
@@ -69,4 +69,17 @@ public class MessageServiceTest {
         Assert.assertNull(messageService.getMessage(id1));
         Assert.assertNull(messageService.getMessage(id2));
     }
+
+    @Test
+    public void testGetMessage() {
+        Message message1 = new Message();
+        Long id1 = 1L;
+        message1.setId(id1);
+        message1.setTitle("标题1");
+        message1.setContent("内容1");
+        messageService.saveMessageCache(message1);
+        Assert.assertNotNull(messageService.getMessage(id1));
+    }
+
+
 }
