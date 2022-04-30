@@ -27,19 +27,19 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @CachePut(cacheNames = "message", key = "#message.id")
     public Message saveMessageCache(Message message) {
-        log.error("access saveMessageCache method, parameter::{}", JacksonUtil.toString(message));
+        log.info("access saveMessageCache method, parameter::{}", JacksonUtil.toString(message));
         return message;
     }
 
     @Override
     @CacheEvict(cacheNames = "message", key = "#id")
     public void evictCacheById(Long id) {
-        log.error("access evictMessage method, parameter::{}", id);
+        log.info("access evictMessage method, parameter::{}", id);
     }
 
     @Override
     @CacheEvict(cacheNames = "message", allEntries = true)
     public void evictAllCache() {
-        log.error("access evictAllCache method");
+        log.info("access evictAllCache method");
     }
 }

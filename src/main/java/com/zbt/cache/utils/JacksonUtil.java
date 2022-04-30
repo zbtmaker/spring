@@ -1,5 +1,6 @@
 package com.zbt.cache.utils;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -25,6 +26,7 @@ public class JacksonUtil {
             return "null";
         }
         try {
+            MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             return MAPPER.writeValueAsString(object);
         } catch (Exception ex) {
             LOGGER.error("convert object to string error", ex);
@@ -34,6 +36,7 @@ public class JacksonUtil {
 
     public static <T> T parseObject(String value, Class<T> clazz) {
         try {
+            MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             return MAPPER.readValue(value, clazz);
         } catch (Exception ex) {
             LOGGER.error("parse object:{} error", value, ex);

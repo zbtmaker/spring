@@ -16,6 +16,16 @@ import java.util.stream.Collectors;
  */
 public class JacksonUtilTest extends TestCase {
 
+    public void testToString() {
+        Message message = new Message();
+        message.setId(1L);
+        message.setTitle("title 1");
+        message.setContent("content 1");
+        String str = JacksonUtil.toString(message);
+        Message messageParse = JacksonUtil.parseObject(str, Message.class);
+        System.out.println(str);
+    }
+
     public void test1() {
         Message message1 = new Message();
         message1.setId(1L);

@@ -39,10 +39,17 @@ public class MessageServiceTest {
         message.setId(id);
         message.setTitle("标题");
         message.setContent("内容");
+        // 存入缓存
         messageService.saveMessageCache(message);
 
+        // 从缓存中获取对象
+        Message cachedMessage = messageService.getMessage(id);
+        Assert.assertNotNull(cachedMessage);
+
+        // 从缓存中剔除对象
         messageService.evictCacheById(id);
 
+        // 再一次获取缓存对象时为空
         Assert.assertNull(messageService.getMessage(id));
     }
 
