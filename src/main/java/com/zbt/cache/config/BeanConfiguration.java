@@ -1,8 +1,8 @@
 package com.zbt.cache.config;
 
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  * @author zoubaitao
@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan(basePackages = {"com.zbt.cache"})
-@EnableCaching
+@PropertySource(value = {"classpath:application.properties"})
 public class BeanConfiguration {
 }

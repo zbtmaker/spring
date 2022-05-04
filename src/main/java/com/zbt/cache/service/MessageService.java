@@ -14,6 +14,14 @@ public interface MessageService {
      * @param id 主键Id
      * @return Message对象
      */
+    Message getMessageWithoutCache(Long id);
+
+    /**
+     * 根据主键Id从缓存中获取Message对象
+     *
+     * @param id 主键Id
+     * @return Message对象
+     */
     Message getMessage(Long id);
 
     /**

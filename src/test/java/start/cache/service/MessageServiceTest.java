@@ -88,5 +88,16 @@ public class MessageServiceTest {
         Assert.assertNotNull(messageService.getMessage(id1));
     }
 
+    @Test
+    public void testGetMessageWithoutCache() {
+        Message message1 = new Message();
+        Long id1 = 1L;
+        message1.setId(id1);
+        message1.setTitle("标题1");
+        message1.setContent("内容1");
+        messageService.saveMessageCache(message1);
+        message1 = messageService.getMessageWithoutCache(id1);
+        Assert.assertNotNull(message1);
+    }
 
 }
