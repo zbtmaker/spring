@@ -43,4 +43,6 @@ public interface MessageService {
      * 清除所有缓存
      */
     void evictAllCache();
+
+    String getName();
 }

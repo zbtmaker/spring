@@ -5,6 +5,7 @@ import com.zbt.cache.service.MessageService;
 import com.zbt.cache.utils.JacksonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,9 +19,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class MessageServiceImpl implements MessageService , ApplicationContextAware {
+public class MessageServiceImpl implements MessageService, ApplicationContextAware {
 
-    private   ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
+
+    @Value(value = "${message.value}")
+    private String name;
 
     @Override
     public Message getMessageWithoutCache(Long id) {
@@ -59,5 +63,9 @@ public class MessageServiceImpl implements MessageService , ApplicationContextAw
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    public String getName(){
+        return this.name;
     }
 }

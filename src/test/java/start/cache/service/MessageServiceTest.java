@@ -100,4 +100,9 @@ public class MessageServiceTest {
         Assert.assertNotNull(message1);
     }
 
+    @Test
+    public void testGetName() {
+        Assert.assertNotNull(messageService.getName());
+    }
+
 }
