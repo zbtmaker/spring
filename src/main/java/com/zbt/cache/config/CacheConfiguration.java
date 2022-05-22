@@ -28,6 +28,7 @@ public class CacheConfiguration {
     @Autowired
     private Environment environment;
 
+    @SuppressWarnings("unchecked")
     @Bean
     public CacheManager caffeineCacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
@@ -41,8 +42,12 @@ public class CacheConfiguration {
                     if (key.startsWith("app.cache")) {
                         String cacheName = key.substring(10);
                         CacheConfig cacheConfig = JacksonUtil.parseObject(entry.getValue().toString(), CacheConfig.class);
+                        if(cacheConfig == null) {
+                            continue;
+                        }
                         Caffeine<Object, Object> caffeine = Caffeine.newBuilder();
                         caffeine.expireAfterWrite(cacheConfig.expireAfterWriter, TimeUnit.SECONDS);
+                        caffeine.maximumSize(cacheConfig.maximumSize);
                         CaffeineCache caffeineCache = new CaffeineCache(cacheName, caffeine.build());
                         cacheMap.put(cacheName, caffeineCache);
                     }
