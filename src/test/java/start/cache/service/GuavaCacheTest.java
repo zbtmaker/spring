@@ -22,12 +22,12 @@ public class GuavaCacheTest extends TestCase {
                     }
                 });
         for (int i = 0; i < 10; i++) {
-            String res = cache.get(String.valueOf(i));
+            String res = cache.get(String.valueOf(i), () -> null);
             System.out.println(res);
         }
         System.out.println("----------------------------------");
         for (int i = 9; i >= 0; i--) {
-            String res = cache.get(String.valueOf(i));
+            String res = cache.get(String.valueOf(i), () -> null);
             System.out.println(res);
         }
     }

@@ -2,7 +2,6 @@ package com.zbt.cache.service.impl;
 
 import com.zbt.cache.entity.Message;
 import com.zbt.cache.service.MessageService;
-import com.zbt.cache.utils.JacksonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +11,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
+import zbtmaker.boot.common.util.JacksonUtils;
 
 /**
  * @author zoubaitao
@@ -44,7 +44,7 @@ public class MessageServiceImpl implements MessageService, ApplicationContextAwa
     @Override
     @CachePut(cacheNames = "message", key = "#message.id")
     public Message saveMessageCache(Message message) {
-        log.info("access saveMessageCache method, parameter::{}", JacksonUtil.toString(message));
+        log.info("access saveMessageCache method, parameter::{}", JacksonUtils.toString(message));
         return message;
     }
 

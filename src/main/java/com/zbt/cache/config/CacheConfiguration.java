@@ -1,7 +1,6 @@
 package com.zbt.cache.config;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.zbt.cache.utils.JacksonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -12,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
+import zbtmaker.boot.common.util.JacksonUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class CacheConfiguration {
                     String key = entry.getKey();
                     if (key.startsWith("app.cache")) {
                         String cacheName = key.substring(10);
-                        CacheConfig cacheConfig = JacksonUtil.parseObject(entry.getValue().toString(), CacheConfig.class);
+                        CacheConfig cacheConfig = JacksonUtils.parseObject(entry.getValue().toString(), CacheConfig.class);
                         if(cacheConfig == null) {
                             continue;
                         }

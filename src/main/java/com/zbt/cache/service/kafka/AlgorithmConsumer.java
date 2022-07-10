@@ -1,6 +1,8 @@
-package com.zbt.cache.service;
+package com.zbt.cache.service.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+
+import java.util.List;
 
 /**
  * @author zoubaitao
@@ -21,5 +23,5 @@ public interface AlgorithmConsumer {
      *
      * @param msg
      */
-    void processSystemMsg(ConsumerRecord<String, String> msg);
+    void processSystemMsg(List<String> consumerRecords);
 }
