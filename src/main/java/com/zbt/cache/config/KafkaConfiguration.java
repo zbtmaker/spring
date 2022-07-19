@@ -1,13 +1,13 @@
 package com.zbt.cache.config;
 
 import org.springframework.context.annotation.Configuration;
-import zbtmaker.boot.mq.kafka.annotation.EnableAutoKafkaConfig;
+import zbtmaker.boot.mq.kafka.annotation.EnableAutoKafka;
 
 /**
  * @author zoubaitao
  * date 2022/06/04
  */
 @Configuration
-@EnableAutoKafkaConfig
+@EnableAutoKafka
 public class KafkaConfiguration {
 }

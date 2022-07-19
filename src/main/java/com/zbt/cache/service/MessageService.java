@@ -44,5 +44,4 @@ public interface MessageService {
      */
     void evictAllCache();
 
-    String getName();
 }

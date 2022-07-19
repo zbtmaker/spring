@@ -3,13 +3,11 @@ package com.zbt.cache.service.impl;
 import com.zbt.cache.entity.Message;
 import com.zbt.cache.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import zbtmaker.boot.common.util.JacksonUtils;
 
@@ -19,12 +17,10 @@ import zbtmaker.boot.common.util.JacksonUtils;
  */
 @Service
 @Slf4j
-public class MessageServiceImpl implements MessageService, ApplicationContextAware {
+public class MessageServiceImpl implements MessageService {
 
+    @Autowired
     private ApplicationContext applicationContext;
-
-    @Value(value = "${message.value}")
-    private String name;
 
     @Override
     public Message getMessageWithoutCache(Long id) {
@@ -58,14 +54,5 @@ public class MessageServiceImpl implements MessageService, ApplicationContextAwa
     @CacheEvict(cacheNames = "message", allEntries = true)
     public void evictAllCache() {
         log.info("access evictAllCache method");
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
-
-    public String getName(){
-        return this.name;
     }
 }

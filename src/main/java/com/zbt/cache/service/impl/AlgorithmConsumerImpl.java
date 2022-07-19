@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import zbtmaker.boot.common.util.JacksonUtils;
 
 import java.util.List;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zoubaitao
@@ -17,27 +20,42 @@ import java.util.List;
 @Slf4j
 public class AlgorithmConsumerImpl implements AlgorithmConsumer {
 
+    private static final ThreadPoolExecutor THREAD_POOL = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(),
+            Runtime.getRuntime().availableProcessors() * 2, 100,
+            TimeUnit.SECONDS, new SynchronousQueue<>(), new ThreadPoolExecutor.CallerRunsPolicy());
 
+    @KafkaListener(topics = {"concurrency"}, groupId = "concurrencyGroup", containerFactory = "containerFactory#concurrency")
     @Override
-    public void processOperatorMsg(ConsumerRecord<String, String> msg) {
-
+    public void processConcurrencyMsg(List<String> consumerRecords) {
+        log.error("start consumer topic:{}, message size:{}, message info:{}", "test", consumerRecords.size(), JacksonUtils.toString(consumerRecords));
+        for (String str : consumerRecords) {
+            THREAD_POOL.submit(() -> {
+                try {
+                    log.error("consumer topic:{}, message info:{}", "test", str);
+                    Thread.sleep(3000);
+                } catch (Exception ex) {
+                    log.error("consumer sleep error", ex);
+                }
+            });
+        }
+        log.error("end consumer topic:{}, message size:{}, message info:{}", "test", consumerRecords.size(), JacksonUtils.toString(consumerRecords));
     }
 
     @KafkaListener(topics = {"test"}, groupId = "testGroup", containerFactory = "containerFactory#test")
     @Override
-    public void processSystemMsg(List<String> consumerRecords) {
-        long startTime = System.currentTimeMillis();
-        if (consumerRecords == null || consumerRecords.isEmpty()) {
-            log.error("consumer topic::{}, the message is null", "test");
-            return;
-        }
-        try {
-            Thread.sleep(5000);
-        } catch (Exception ex) {
-            log.error("consumer sleep error", ex);
-        }
+    public void processTestMsg(List<String> consumerRecords) {
+        log.error("start consumer topic:{}, message size:{}, message info:{}", "test", consumerRecords.size(), JacksonUtils.toString(consumerRecords));
 
-        log.info("consumer topic:{}, message size:{}, cost time:{}, message info:{}", "test", consumerRecords.size(), System.currentTimeMillis() - startTime, JacksonUtils.toString(consumerRecords));
+        long startTime = System.currentTimeMillis();
+        for (String str : consumerRecords) {
+            try {
+                log.error("consumer topic:{}, message info:{}", "test", str);
+                Thread.sleep(101);
+            } catch (Exception ex) {
+                log.error("consumer sleep error", ex);
+            }
+        }
+        log.error("consumer topic:{}, message size:{}, cost time:{}, message info:{}", "test", consumerRecords.size(), System.currentTimeMillis() - startTime, JacksonUtils.toString(consumerRecords));
 
     }
 }

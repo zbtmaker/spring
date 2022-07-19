@@ -98,6 +98,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.zbtmaker</groupId>
+            <artifactId>zbtmaker-boot-cache</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>2.0.8</version>

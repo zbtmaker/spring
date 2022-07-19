@@ -16,12 +16,12 @@ public interface AlgorithmConsumer {
      *
      * @param msg
      */
-    void processOperatorMsg(ConsumerRecord<String, String> msg);
+    void processConcurrencyMsg(List<String> consumerRecords);
 
     /**
      * 处理系统消息
      *
      * @param msg
      */
-    void processSystemMsg(List<String> consumerRecords);
+    void processTestMsg(List<String> consumerRecords);
 }

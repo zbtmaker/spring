@@ -20,7 +20,7 @@ public class AlgorithmConsumerTest {
 
 
     @Test
-    public void testProcessSystemMsg() {
+    public void testConsumerMsg() {
         while (true) {
 
         }

@@ -99,10 +99,4 @@ public class MessageServiceTest {
         message1 = messageService.getMessageWithoutCache(id1);
         Assert.assertNotNull(message1);
     }
-
-    @Test
-    public void testGetName() {
-        Assert.assertNotNull(messageService.getName());
-    }
-
 }
