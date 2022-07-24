@@ -18,7 +18,7 @@ public class AlgorithmKafkaProducer {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    public AlgorithmKafkaProducer(@Qualifier("kafkaTemplate#test") KafkaTemplate<String, String> kafkaTemplate) {
+    public AlgorithmKafkaProducer(@Qualifier("kafkaTemplate#local") KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 

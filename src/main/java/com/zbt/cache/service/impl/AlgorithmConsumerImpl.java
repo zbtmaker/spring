@@ -2,7 +2,6 @@ package com.zbt.cache.service.impl;
 
 import com.zbt.cache.service.kafka.AlgorithmConsumer;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import zbtmaker.boot.common.util.JacksonUtils;
@@ -24,7 +23,7 @@ public class AlgorithmConsumerImpl implements AlgorithmConsumer {
             Runtime.getRuntime().availableProcessors() * 2, 100,
             TimeUnit.SECONDS, new SynchronousQueue<>(), new ThreadPoolExecutor.CallerRunsPolicy());
 
-    @KafkaListener(topics = {"concurrency"}, groupId = "concurrencyGroup", containerFactory = "containerFactory#concurrency")
+    @KafkaListener(topics = {"concurrency"}, groupId = "concurrencyGroup", containerFactory = "containerFactory#local")
     @Override
     public void processConcurrencyMsg(List<String> consumerRecords) {
         log.error("start consumer topic:{}, message size:{}, message info:{}", "test", consumerRecords.size(), JacksonUtils.toString(consumerRecords));
@@ -41,7 +40,7 @@ public class AlgorithmConsumerImpl implements AlgorithmConsumer {
         log.error("end consumer topic:{}, message size:{}, message info:{}", "test", consumerRecords.size(), JacksonUtils.toString(consumerRecords));
     }
 
-    @KafkaListener(topics = {"test"}, groupId = "testGroup", containerFactory = "containerFactory#test")
+    @KafkaListener(topics = {"test"}, groupId = "testGroup", containerFactory = "containerFactory#local")
     @Override
     public void processTestMsg(List<String> consumerRecords) {
         log.error("start consumer topic:{}, message size:{}, message info:{}", "test", consumerRecords.size(), JacksonUtils.toString(consumerRecords));

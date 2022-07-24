@@ -1,7 +1,5 @@
 package com.zbt.cache.service.kafka;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-
 import java.util.List;
 
 /**
