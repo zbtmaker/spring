@@ -23,7 +23,16 @@ public class AlgorithmKafkaProducerTest {
     @Test
     public void testSend() {
         String topic = "test";
-        for (int i = 0; i < 2400; i++) {
+        for (int i = 0; i < 10; i++) {
+            if (i % 3 == 0) {
+                try {
+                    Thread.sleep(4000);
+                    log.info("start sleep -----------");
+                } catch (Exception ex) {
+                    log.error("sleep error", ex);
+                }
+
+            }
             algorithmKafkaProducer.send(topic, String.valueOf(i));
         }
         log.info("producer message to topic::{} success", topic);
@@ -36,11 +45,11 @@ public class AlgorithmKafkaProducerTest {
             algorithmKafkaProducer.send(topic, String.valueOf(i));
         }
         log.info("producer message to topic::{} success", topic);
-        /*try {
+        try {
             Thread.sleep(100);
         } catch (Exception ex) {
             log.error("producer messag to topic::{}", topic);
-        }*/
+        }
 
     }
 }

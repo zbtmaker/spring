@@ -26,18 +26,18 @@ public class AlgorithmConsumerImpl implements AlgorithmConsumer {
     @KafkaListener(topics = {"concurrency"}, groupId = "concurrencyGroup", containerFactory = "containerFactory#local")
     @Override
     public void processConcurrencyMsg(List<String> consumerRecords) {
-        log.error("start consumer topic:{}, message size:{}, message info:{}", "test", consumerRecords.size(), JacksonUtils.toString(consumerRecords));
+        log.error("start consumer topic:{}, message size:{}, message info:{}", "concurrency", consumerRecords.size(), JacksonUtils.toString(consumerRecords));
         for (String str : consumerRecords) {
             THREAD_POOL.submit(() -> {
                 try {
-                    log.error("consumer topic:{}, message info:{}", "test", str);
+                    log.error("consumer topic:{}, message info:{}", "concurrency", str);
                     Thread.sleep(3000);
                 } catch (Exception ex) {
                     log.error("consumer sleep error", ex);
                 }
             });
         }
-        log.error("end consumer topic:{}, message size:{}, message info:{}", "test", consumerRecords.size(), JacksonUtils.toString(consumerRecords));
+        log.error("end consumer topic:{}, message size:{}, message info:{}", "concurrency", consumerRecords.size(), JacksonUtils.toString(consumerRecords));
     }
 
     @KafkaListener(topics = {"test"}, groupId = "testGroup", containerFactory = "containerFactory#local")
@@ -49,7 +49,7 @@ public class AlgorithmConsumerImpl implements AlgorithmConsumer {
         for (String str : consumerRecords) {
             try {
                 log.error("consumer topic:{}, message info:{}", "test", str);
-                Thread.sleep(101);
+                Thread.sleep(10);
             } catch (Exception ex) {
                 log.error("consumer sleep error", ex);
             }
